@@ -1,0 +1,37 @@
+{% extends 'connexion.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<div class="container mt-4 d-flex justify-content-center align-items-center"style="min-height:80vh;">
+
+                <div class="card border-0 shadow-sm w-50 mx-auto">
+            <div class="card-body">
+              
+             
+            <form method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                
+
+                <h1 class="h3 mb-3 font-weight-normal">Veillez vous connectez!</h1>
+                <label for="inputEmail">Email</label>
+                {# CHANGEMENT N°1 : name="email" devient name="_username" #}
+                <input type="email" value="{{ last_username }}" name="_username" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+
+                <label for="inputPassword">Mot de passe</label>
+                {# CHANGEMENT N°2 : name="password" devient name="_password" #}
+                <input type="password" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+                <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+
+                <button class="btn btn-lg btn-primary float-end mt-2" type="submit">
+                    Se connecter
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
