@@ -1,0 +1,5 @@
+{% if pagination.pageCount > 1 %}
+    <div class="d-flex justify-content-center mt-3">
+        {{ knp_pagination_render(pagination, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
+    </div>
+{% endif %}

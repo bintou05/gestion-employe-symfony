@@ -1,0 +1,18 @@
+{# templates/departement/new.html.twig}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Département{% endblock %}
+
+{% block body %}
+    <h1>Enregistrer un nouveau département</h1>
+
+    <p><a href="{{ path('app_departement_index') }}">Retour à la liste</a></p>
+
+    {{ form_start(form) }}
+        {{ form_row(form.name) }} 
+        {{ form_row(form.isActive) }}
+        
+        <button class="btn btn-custom-blue mt-3">Enregistrer</button>
+    {{ form_end(form) }}
+{% endblock %}

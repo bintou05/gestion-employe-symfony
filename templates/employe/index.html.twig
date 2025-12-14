@@ -1,0 +1,95 @@
+{# templates/employe/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Employés{% endblock %}
+
+{% block body %}
+    {# Titre et Bouton #}
+    <div class="row mb-4 align-items-center">
+        <div class="col-8">
+            <h2 class="fw-bold">Liste des employés</h2>
+        </div>
+        <div class="col-4 text-end">
+            <a href="#" class="btn btn-primary shadow-sm">
+                <i class="fas fa-plus me-1"></i> Nouveau employé
+            </a>
+        </div>
+    </div>
+
+    {# Barre de Recherche et Filtre #}
+    <div class="card p-2 mb-4 shadow-sm">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Rechercher un employé par nom, département, ou téléphone...">
+                    <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+
+            {# 2. Filtre Département (Occupe 6 colonnes) #}
+            <div class="col-4">
+                {# Ce formulaire est juste un placeholder pour le design, le vrai formulaire viendra plus tard #}
+                <select class="form-select">
+                    <option selected>Filtrer par Département</option>
+                    {% for dept in all_departements_for_filter|default(['Département A', 'Département B']) %}
+                        <option value="{{ dept.id | default(loop.index) }}">{{ dept.name | default(dept) }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    {# Tableau des Employés #}
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 text-center align-middle" style="table-layout: fixed;">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="text-center" style="width: 5%;">ID</th>
+                            <th class="text-center" style="width: 15%;">Nom</th>
+                            <th class="text-center" style="width: 12%;">Téléphone</th>
+                            <th class="text-center" style="width: 12%;">Embauché le</th>
+                            <th class="text-center" style="width: 12%;">Statut</th>
+                            <th class="text-center" style="width: 12%;">Département</th>
+                            <th class="text-center" style="width: 15%;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for employe in employes %}
+                        <tr>
+                            <td>{{ employe.id }}</td>
+                            <td class="fw-bold">{{ employe.name }}</td>
+                            <td>{{ employe.tel }}</td>
+                            <td>{{ employe.embaucheAt|date('d/m/Y') }}</td>
+                            <td>
+                                {% include 'partials/statut.partial.html.twig' with {'active': employe.isActive} %}
+                            </td>
+                            <td>{{ employe.departement.name }}</td>  
+                            <td>
+                                <a href="#" class="btn btn-sm btn-outline-primary" title="Modifier">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-outline-info" title="Détails">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="8" class="text-center p-4">Aucun employé trouvé.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {# Pagination #}
+    {{ include('partials/pagination.partial.html.twig', {
+    pagination: employes}) }}
+{% endblock %}

@@ -1,0 +1,79 @@
+{# templates/departement/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Départements{% endblock %}
+
+{% block body %}
+    {# Affichage des messages flash de succès/erreur après enregistrement #}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success mb-4">{{ message }}</div>
+    {% endfor %}
+    <div class="row mb-4 align-items-center">
+        <div class="col-4">
+            <h2 class="fw-bold">Liste des départements</h2>
+        </div>
+        <div class="col-8 text-end">
+            {# Bouton d'enregistrement d'un nouveau département  #}
+            {{ form_start(creationForm, {'attr': {'class': 'd-flex justify-content-end align-items-center'}}) }}  
+                <div class="me-2 flex-grow-1" style="max-width: 300px;">
+                    {{ form_widget(creationForm.name) }} 
+                </div>
+                <button type="submit" class="btn btn-primary shadow-sm">
+                    Enregistrer
+                </button>
+                {{ form_row(creationForm._token) }}
+            {{ form_end(creationForm, {'render_rest': false}) }}
+        </div>
+    </div>
+
+    {# Tableau des Départements #}
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 text-center align-middle" style="table-layout: fixed;">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="text-center" style="width: 10%;">ID</th>
+                            <th class="text-center" style="width: 15%;">Nom</th>
+                            <th class="text-center" style="width: 14%;">Créé le</th>
+                            <th class="text-center" style="width: 14%;">Statut</th>
+                            <th class="text-center" style="width: 15%;">Nombre d'employés</th>
+                            <th class="text-center" style="width: 11%;">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for departement in departements %}
+                        <tr>
+                            <td>{{ departement.id }}</td>
+                            <td class="fw-bold">{{ departement.name }}</td>
+                            <td>{{ departement.createAt|date('d/m/Y') }}</td>
+                            <td>
+                                {% include 'partials/statut.partial.html.twig' with {'active': departement.isActive} %}
+                            </td>
+                                <td>{{ departement.employes|length }}</td>
+                            <td>
+                                {# Boutons d'actions (Bleu/Édition, Orange/Liste Employés, Rouge/Suppression) #}
+                                <a href="#" class="btn btn-sm btn-outline-primary" title="Modifier">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{{path('app_employe_dept', {idDept:departement.id})}}" class="btn btn-sm btn-outline-warning" title="Voir les employés">
+                                    <i class="fas fa-users"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {# Pagination #}
+    {{ include('partials/pagination.partial.html.twig', {
+    pagination: departements}) }}
+
+{% endblock %}

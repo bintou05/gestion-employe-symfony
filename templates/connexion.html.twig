@@ -1,0 +1,14 @@
+{# templates/connexion.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - GesEmp{% endblock %}
+
+{# Empêcher l'affichage du header sur la page de connexion #}
+{% block header %}{% endblock %} 
+
+{% block body %}
+    <div class="d-flex align-items-center justify-content-center style="height: 100vh;">
+        {% block login_content %}{% endblock %}  
+    </div>
+{% endblock %}

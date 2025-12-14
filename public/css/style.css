@@ -1,0 +1,58 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333; /* Couleur de texte */
+    min-height: 100vh;
+}
+
+/* Styles de la page de connexion */
+.card-body h2 {
+    color: #1a73e8; /* Un bleu plus vif pour le titre GesEmp */
+}
+
+/* Styles des Boutons*/
+.btn-primary {
+    background-color: #1a73e8; /* Bleu Google-like */
+    border-color: #1a73e8;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #155bb5;
+    border-color: #155bb5;
+}
+
+/*Styles pour la future navigation*/
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; 
+    padding: 48px 0 0; 
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.main-content {
+    padding-top: 56px; /* Espace pour la barre de navigation fixe */
+    margin-left: 240px; /* Espace pour la barre latérale */
+}
+
+
+/* Style des tableaux*/
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+/* Styles pour le pied de page (footer) */
+.app-footer {
+    padding: 1rem 0;
+    text-align: center;
+    border-top: 1px solid #e9ecef;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
